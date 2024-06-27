@@ -71,10 +71,17 @@ void print_linked_list(Node *head)
     cout << nl;
 }
 
-void delete_from_any_position(Node *head, int pos)
+void delete_from_any_position(Node *&head, int pos)
 {
+    if (pos == 1)
+    {
+        Node *targetNode = head;
+        head = head->next;
+        delete targetNode;
+        return;
+    }
     Node *temp = head;
-    for (int i = 1; i < pos; i++)
+    for (int i = 1; i < pos-1; i++)
     {
         temp = temp->next;
     }
@@ -84,33 +91,36 @@ void delete_from_any_position(Node *head, int pos)
     delete deletenode;
 }
 
-void delete_head(Node *&head)
-{
-    Node *deletehead = head;
-    head = head->next;
-    delete deletehead;
-}
-
 int main()
 {
     Node *head = NULL;
     while (1)
     {
-        cout << "Option-01: Insert at Tail of your Linked List\n";
+        cout << "Option-01: Input Linked List\n";
         cout << "Option-02: Print your Linked List\n";
         cout << "Option-03: Insert at any Position\n";
         cout << "Option-04: Delete from any Position\n";
         cout << "Option-05: Terminate \n\n";
-        cout << "Select Any Options: ";
+        cout << "Select Any Option: ";
 
         int op;
         cin >> op;
 
         if (op == 1)
         {
-            int val;
-            cin >> val;
-            insert_at_tail(head, val);
+            while (1)
+            {
+                int val;
+                cin >> val;
+                if (val == -1)
+                {
+                    break;
+                }
+                else
+                {
+                    insert_at_tail(head, val);
+                }
+            }
         }
         else if (op == 2)
         {
@@ -121,7 +131,7 @@ int main()
             int pos, val;
             cout << "Enter position and value: ";
             cin >> pos >> val;
-            if (pos == 0)
+            if (pos == 1)
             {
                 insert_at_head(head, val);
             }
@@ -135,14 +145,11 @@ int main()
             int pos;
             cout << "Enter Position: ";
             cin >> pos;
-            if (pos == 0)
-            {
-                delete_head(head);
-            }
-            else
-            {
-                delete_from_any_position(head, pos);
-            }
+            delete_from_any_position(head, pos);
+        }
+        else if (op == 5)
+        {
+            break;
         }
     }
 
