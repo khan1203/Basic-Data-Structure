@@ -15,9 +15,9 @@ public:
 };
 
 // Functions ------------------------
-int input_linked_list(Node *&head, Node *&tail)
+void input_linked_list(Node *&head, Node *&tail)
 {
-    int val, co=0;
+    int val, co = 0;
     while (1)
     {
         cin >> val;
@@ -30,27 +30,23 @@ int input_linked_list(Node *&head, Node *&tail)
         {
             head = newNode;
             tail = newNode;
-            co++;
         }
         else
         {
             tail->next = newNode;
             tail = newNode;
-            co++;
         }
     }
-    return co;
 }
 
-void print_reverse(Node *head)
+void print_reverse(Node *n)
 {
-    Node *temp = head;
-    while (temp)
+    if (n == NULL)
     {
-        cout << temp->value << " ";
-        temp = temp->next;
+        return;
     }
-    cout << "\n";
+    print_reverse(n->next);
+    cout << n->value << " ";
 }
 
 int main()
@@ -58,16 +54,8 @@ int main()
     // Fast_io();
     Node *head1 = NULL;
     Node *tail1 = NULL;
-    Node *head2 = NULL;
-    Node *tail2 = NULL;
 
-    int l1 = input_linked_list(head1, tail1);
-    int l2 = input_linked_list(head2, tail2);
-    if(l1==l2){
-        cout<<"YES\n";
-    }
-    else{
-        cout<<"NO\n";
-    }
+    input_linked_list(head1, tail1);
+    print_reverse(head1);
     return 0;
 }
