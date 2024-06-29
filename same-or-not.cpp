@@ -24,7 +24,7 @@ public:
 // Functions ------------------------
 int input_linked_list(Node *&head, Node *&tail)
 {
-    int val, co = 0;
+    int val, size = 0;
     while (1)
     {
         cin >> val;
@@ -37,16 +37,16 @@ int input_linked_list(Node *&head, Node *&tail)
         {
             head = newNode;
             tail = newNode;
-            co++;
+            size++;
         }
         else
         {
             tail->next = newNode;
             tail = newNode;
-            co++;
+            size++;
         }
     }
-    return co;
+    return size;
 }
 
 void check(Node *head1, Node *head2)
