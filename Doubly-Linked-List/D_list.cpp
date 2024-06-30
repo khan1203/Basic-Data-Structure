@@ -33,7 +33,7 @@ ll size(Node *head)
     return cnt;
 }
 
-// Functions for Operations--------------------------------------
+// Insertion Operations --------------------------------------
 void insert_head(Node *&head, Node *&tail, ll val)
 {
     Node *newNode = new Node(val);
@@ -95,6 +95,8 @@ void insert_any_position(Node *&head, Node *&tail, ll pos, ll val)
     }
 }
 
+// Deletion Operations ----------------------------------
+
 void delete_head(Node *&head)
 {
     Node *targetNode = head;
@@ -129,21 +131,29 @@ void delete_any_position(Node *&head, Node *&tail, ll pos)
         delete_tail(tail);
         return;
     }
-
-    Node *tmp = head;
-    for (ll i = 0; i < pos - 1; i++)
+    else
     {
-        tmp = tmp->next;
+        Node *tmp = head;
+        for (ll i = 0; i < pos - 1; i++)
+        {
+            tmp = tmp->next;
+        }
+        Node *targetNode = tmp->next;
+        tmp->next = targetNode->next;
+        tmp->next->prev = tmp;
+        delete targetNode;
     }
-    Node *targetNode = tmp->next;
-    tmp->next = targetNode->next;
-    tmp->next->prev = tmp;
-    delete targetNode;
 }
 
 // Print functions---------------------------------
 void print_normal(Node *head)
 {
+    if (head == nullptr)
+    {
+        cout << "List is empty" << nl;
+        return;
+    }
+
     Node *tmp = head;
     while (tmp != nullptr)
     {
@@ -155,6 +165,11 @@ void print_normal(Node *head)
 
 void print_reverse(Node *tail)
 {
+    if (tail == nullptr)
+    {
+        cout << "List is empty" << nl;
+        return;
+    }
     Node *tmp = tail;
     while (tmp != nullptr)
     {
@@ -168,18 +183,19 @@ int main()
 {
     // Fast_io();
     // Nodes------------------
-    Node *head = new Node(10);
-    Node *a = new Node(20);
-    Node *b = new Node(30);
-    Node *tail = new Node(40);
+    Node *head = nullptr;
+    Node *tail = head;
+    // Node *a = new Node(20);
+    // Node *b = new Node(30);
+    // Node *tail = new Node(40);
 
     // Connections-------------
-    head->next = a;
-    a->next = b;
-    b->next = tail;
-    tail->prev = b;
-    b->prev = a;
-    a->prev = head;
+    // head->next = a;
+    // a->next = b;
+    // b->next = tail;
+    // tail->prev = b;
+    // b->prev = a;
+    // a->prev = head;
 
     // Operations---------------
     while (true)
@@ -198,7 +214,25 @@ int main()
 
         int op;
         cin >> op;
-        if (op == 2)
+        if (op == 1)
+        {
+            ll val;
+            cout << "Enter values: ";
+            while (1)
+            {
+                cin >> val;
+                if (val == -1)
+                {
+                    break;
+                }
+                else
+                {
+                    insert_tail(head, tail, val);
+                }
+            }
+            print_normal(head);
+        }
+        else if (op == 2)
         {
             int val;
             cout << "Enter value: ";
