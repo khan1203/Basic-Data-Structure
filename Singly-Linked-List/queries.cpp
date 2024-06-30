@@ -20,6 +20,18 @@ public:
     Node(ll val) : value(val), next(NULL) {}
 };
 
+ll size(Node *head)
+{
+    Node *temp = head;
+    ll co = 0;
+    while (temp != nullptr)
+    {
+        co++;
+        temp = temp->next;
+    }
+    return co;
+}
+
 void insert_node_at_tail(Node *&head, ll val)
 {
     Node *newNode = new Node(val);
